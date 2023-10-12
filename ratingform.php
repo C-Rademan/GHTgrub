@@ -106,7 +106,10 @@
             </form>   
         </section> <!--form container popup review-->   
         </section><!--contains restaurant image and review-->
-        <section id=commentSection><?php getComments($conn, $clicked_id); ?></section>
+        <section id='commentSection'>
+            <?php 
+            getComments($conn, $clicked_id); ?>
+        </section>
         
        
     </body>

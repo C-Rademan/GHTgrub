@@ -10,7 +10,15 @@ if (!isset($_SESSION["loggedIn"])) {
 } else {
     echo '<p> User is not logged in</p>';
 }
-$passwordU = "";
+
+if (!isset($_SESSION["passwordU"])){
+    $_SESSION["passwordU"] = "";
+}
+if (!isset($_SESSION["passwordErr"])){
+    $_SESSION["passwordErr"] = "";
+}
+$passwordU = $_SESSION["passwordU"];
+$passwordErr = $_SESSION["passwordErr"];
 ?>
 
 <!DOCTYPE html>
@@ -49,12 +57,14 @@ $passwordU = "";
 <section class="outer-form-container"> <!--Delete-->
     <section class="form-box">
         <h1 id="form_title">Delete account</h1>
+        <p><span class="errors">* required field</span></p>
         <form method="post" action="deleteAccount.php"> 
+        <p id="error"></p>
             <section class="input-field">
                 <i class="material-symbols-outlined">lock</i>
                 <input type="password" placeholder="Password" id="password1" name="passwordU" value="<?php echo $passwordU;?>">
             </section>
-
+            <span class="errors">*<?php echo $passwordErr;  ?></span>
             <section class="btn-field"> 
                 <button type = "submit" id="login_btn" class="submission">Delete</button>
                 </section>

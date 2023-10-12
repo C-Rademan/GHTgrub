@@ -1,7 +1,7 @@
 <?php
 //Start the session 
 session_start();
-$authenticated = false;
+$deletedSuccessfully = false;
 $email = $_SESSION["email"];
 $passwordU = "";
 $passwordErr = "";
@@ -50,8 +50,43 @@ if ($passwordOK) {
     if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
     }
+
     $sql = "SELECT UserPassword FROM users WHERE UserEmail='$email'";
     $result = $conn->query($sql);
+
+    if ($result) {
+        // Check if the query was successful
+        if ($result->num_rows > 0) {
+            // Fetch the data from the result object
+            $row = $result->fetch_assoc();
+            $passwordFromDatabase = $row['UserPassword'];
+        } else {
+            echo "No results found for the given email.";
+        }
+    } else {
+        echo "Query failed: " . $conn->error;
+    }
     
+    if ($passwordFromDatabase == $passwordU) {
+        $sql = "DELETE FROM users WHERE UserEmail = '$email'";
+        if ($conn->query($sql) === TRUE) {
+            $deletedSuccessfully = true;
+            //Unset session variables 
+            session_unset();
+            $_SESSION["loggedIn"] = false;
+        }else {
+            echo "Error: " . $sql . "<br>" . $conn->error;
+        }
+    } else {
+        // $passwordErr = "Incorrect password";
+    }
+    $conn->close();
 }  
+$_SESSION["passwordU"] = $passwordU;
+$_SESSION["passwordErr"] = $passwordErr;
+if ($deletedSuccessfully) {
+    header('Location: signup.php');
+} else {
+    header('Location: loggedIn.php');
+}
 ?>

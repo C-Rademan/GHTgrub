@@ -531,7 +531,9 @@ table{
     font-weight:bolder;
 }
 
-
+.delBut{
+    text-align:right;
+}
 /*style related to the rating form */
 .reviewPageRestaurantSection{
     background-color: #2ccce4;
@@ -573,8 +575,20 @@ table{
     width:50%;
     float:right;
 }
+#commentSection a{
+    text-align: right;
+    display:block;
+    color:rgb(97, 8, 8);
+    font-weight:bold;
+}
 
-#commentSection p{
+#commentSection a:hover{
+    text-align: right;
+    display:block;
+    color:red;
+}
+
+#commentSection div{
     background-color:white;
     padding:5%;
     border: 1px solid #878787;
@@ -632,6 +646,7 @@ table{
 .slider_box p{
     display:flex;
     flex-direction: column;
+    overscroll-behavior: contain;
 }
 
 #slider-frame{
@@ -644,6 +659,7 @@ table{
     overflow:hidden;
     margin: auto; /*changes*/
 }
+/* text for carousel pictures*/
 .text {
     background-color: #878787;
     color: whitesmoke;
@@ -653,6 +669,7 @@ table{
     bottom: 8px;
     width: 100%;
     text-align: center;
+    overflow: hidden;
   }
 
 #slider-images{
